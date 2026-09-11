@@ -1,0 +1,4 @@
+// ローカル確認用の最小サーバー。node server.js を実行して http://localhost:4173 を開きます。
+const http = require("http"); const fs = require("fs"); const path = require("path");
+const root = __dirname; const types = { ".html":"text/html; charset=utf-8", ".js":"text/javascript; charset=utf-8", ".css":"text/css; charset=utf-8", ".svg":"image/svg+xml", ".webmanifest":"application/manifest+json" };
+http.createServer((req,res) => { const url = new URL(req.url,"http://localhost"); const safe = path.normalize(url.pathname === "/" ? "/index.html" : url.pathname).replace(/^([/\\])+/,""); const file = path.join(root,safe); if (!file.startsWith(root) || !fs.existsSync(file)) { res.writeHead(404); return res.end("Not found"); } res.writeHead(200,{"Content-Type":types[path.extname(file)] || "application/octet-stream","Cache-Control":"no-cache"}); fs.createReadStream(file).pipe(res); }).listen(4173, () => console.log("TypeScript Train: http://localhost:4173"));
