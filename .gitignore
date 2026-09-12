@@ -1,0 +1,16 @@
+node_modules/
+.vite/
+*.tsbuildinfo
+
+# TypeScriptの型チェック時に誤って作られたJavaScript
+src/**/*.js
+vite.config.js
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
